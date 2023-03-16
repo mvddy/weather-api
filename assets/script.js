@@ -1,94 +1,61 @@
-const openWeatherApiKey = 'YOUR_OPEN_WEATHER_API_KEY';
-const getFestivoApiKey = 'YOUR_GETFESTIVO_API_KEY';
+// Define the API endpoint and API key
+const api = "https://api.openweathermap.org/data/2.5/forecast";
+const apiKey = "925c70324dece63089d9784a7f037499";
 
-const modal = document.getElementById('modal');
-const searchList = document.getElementById('search-list');
+// Get the search bar elements
+const searchBar = document.querySelector(".search-bar");
+const cityInput = searchBar.querySelector("input[type='text']:nth-of-type(1)");
+const countryInput = searchBar.querySelector("input[type='text']:nth-of-type(2)");
+const button = searchBar.querySelector("button");
 
-function showModal() {
-  modal.style.display = 'block';
-  loadRecentSearches();
-}
+// Get the search history element
+const searchHistory = document.querySelector(".search-history");
 
-function closeModal() {
-  modal.style.display = 'none';
-}
+// Add an event listener to the button to fetch the forecast data when clicked
+button.addEventListener("click", () => {
+  const city = cityInput.value;
+  const country = countryInput.value;
+  fetchForecast(city, country);
+});
 
-function searchLocation(event) {
-  event.preventDefault();
-  
-  const locationInput = document.getElementById('location');
-  const location = locationInput.value;
-  getWeather(location);
-  getHolidays();
-  saveRecentSearch(location);
-  closeModal();
-  locationInput.value = '';
-}
+// Function to fetch the forecast data from the API
+function fetchForecast(city, country) {
+  fetch(`${api}?q=${city},${country}&units=imperial&appid=${apiKey}`)
+    .then(response => response.json())
+    .then(data => {
+      // Extract the forecast data for the next 5 days
+      const forecastData = data.list.slice(0, 5);
 
-function loadRecentSearches() {
-  const recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
-  searchList.innerHTML = recentSearches.map(search => `<li>${search}</li>`).join('');
-}
+      // Get the city name from the API data
+      const cityName = data.city.name;
 
-function saveRecentSearch(search) {
-  const recentSearches = JSON.parse(localStorage.getItem('recentSearches')) || [];
-  if (!recentSearches.includes(search)) {
-    recentSearches.push(search);
-    localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
-    loadRecentSearches();
-  }
-}
-function getWeather(location) {
-    const today = new Date();
-    const start = new Date(today);
-    const end = new Date(today);
-    end.setDate(end.getDate() + 4);
-    
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${openWeatherApiKey}`)
-      .then(response => response.json())
-      .then(data => {
-        const weatherDiv = document.querySelector('#weather');
-        const forecasts = data.list.filter(forecast => {
-          const date = new Date(forecast.dt * 1000);
-          return date >= start && date <= end && date.getHours() === 12;
-        });
-        weatherDiv.innerHTML = `
-          <h2>Weather Forecast for ${location}</h2>
-          ${forecasts.map(forecast => `
-            <div>
-            <p>${new Date(forecast.dt * 1000).toLocaleDateString()}</p>
-            <p>Temperature: ${(forecast.main.temp - 273.15).toFixed(1)} &deg;C</p>
-            <p>Description: ${forecast.weather[0].description}</p>
-            <img src="http://openweathermap.org/img/w/${forecast.weather[0].icon}.png">
-          </div>
-        `).join('')}
-      `;
-    })
-    .catch(error => console.error(error));
-}
-function getHolidays() {
-    const today = new Date();
-    const start = new Date(today);
-    const end = new Date(today);
-    end.setDate(end.getDate() + 6);
-    
-    fetch(`https://getfestivo.com/v1/holidays?api_key=${getFestivoApiKey}&country=US&year=${end.getFullYear()}`)
-      .then(response => response.json())
-      .then(data => {
-        const holidaysDiv = document.querySelector('#holidays');
-        const holidays = data.holidays.filter(holiday => {
-          const date = new Date(holiday.date.iso);
-          return date >= start && date <= end;
-        });
-        holidaysDiv.innerHTML = `
-          <h2>Holidays in the Next 7 Days</h2>
-          ${holidays.map(holiday => `
-            <div>
-              <p>${new Date(holiday.date.iso).toLocaleDateString()}</p>
-              <p>${holiday.name}</p>
-            </div>
-          `).join('')}
-        `;
+      // Display the city name in the HTML
+      const cityTitle = document.querySelector(".city-title");
+      cityTitle.textContent = cityName;
+
+      // Loop through the forecast data and display it in the HTML
+      forecastData.forEach((forecast, index) => {
+        const forecastCard = document.getElementsByClassName("card")[index];
+        const date = new Date(forecast.dt_txt);
+        const dayOfWeek = date.toLocaleString("en-US", { weekday: "long" });
+        const temperature = Math.round(forecast.main.temp);
+        const humidity = forecast.main.humidity;
+        const windSpeed = Math.round(forecast.wind.speed);
+        const weatherIcon = forecast.weather[0].icon;
+        const weatherDescription = forecast.weather[0].description;
+
+        forecastCard.querySelector(".date").textContent = `${dayOfWeek}, ${date.getMonth()+1}/${date.getDate()}`;
+        forecastCard.querySelector(".temp").textContent = `${temperature}\xB0F`;
+        forecastCard.querySelector(".description").textContent = weatherDescription;
+        forecastCard.querySelector(".humidity").textContent = `Humidity: ${humidity}%`;
+        forecastCard.querySelector(".wind").textContent = `Wind Speed: ${windSpeed} mph`;
+        forecastCard.querySelector(".icon").setAttribute("src", `http://openweathermap.org/img/w/${weatherIcon}.png`);
+      });
+
+      // Save the search query to localStorage
+      const searchQuery = `${city}, ${country}`;
+      searchQuery(searchQuery);
+
     })
     .catch(error => console.error(error));
 }

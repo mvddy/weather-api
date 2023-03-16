@@ -1,30 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Whatever Weather</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- ajax/bulma -->
-  <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-      
-  <!--To make use of Font Awesome icons-->
-  <script src = "script.js"></script>
-</head>
-<body>
-    <h1>Whatever Weather</h1>
-    <form id="search-form">
-      <input type="text" id="city-input" placeholder="Enter city name">
-      <button type="submit">Search</button>
-    </form>
-    <div id="weather-info">
-      <h2 id="city-name"></h2>
-      <p id="temperature"></p>
-      <p id="description"></p>
+<html>
+  <head>
+    <title>Whichever Weather</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div class="search-bar">
+      <input type="text" placeholder="Enter a city...">
+      <input type="text" placeholder="Enter a country...">
+      <button>Search</button>
     </div>
-    <h2>Search History</h2>
-    <ul id="search-history"></ul>
-  
-</body>
+    <div class="container">
+      <h1>5 Day Forecast</h1>
+      <div class="row">
+        <div class="card">
+          <h2>Today</h2>
+          <p class="date"></p>
+          <p class="temp"></p>
+          <p class="description"></p>
+        </div>
+        <div class="card">
+          <h2>Next Day</h2>
+          <p class="date"></p>
+          <p class="temp"></p>
+          <p class="description"></p>
+        </div>
+        <div class="card">
+          <h2>2 Days</h2>
+          <p class="date"></p>
+          <p class="temp"></p>
+          <p class="description"></p>
+        </div>
+        <div class="card">
+          <h2>3 Days</h2>
+          <p class="date"></p>
+          <p class="temp"></p>
+          <p class="description"></p>
+        </div>
+        <div class="card">
+          <h2>4 Days</h2>
+          <p class="date"></p>
+          <p class="temp"></p>
+          <p class="description"></p>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>

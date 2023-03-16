@@ -1,102 +1,52 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  h1 {
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  button {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    margin: 20px;
-    cursor: pointer;
-  }
-  
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-  }
-  
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
-  }
-  
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  #recent-searches {
-    margin-top: 20px;
-  }
-  
-  #search-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  #search-list li {
-    margin: 5px 0;
-  }
-  
-  #weather, #holidays {
-    margin: 20px;
-  }
-  
-  #weather div, #holidays div {
-    display: inline-block;
-    vertical-align: top;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    width: 200px;
-  }
-  
-  #weather img {
-    display: block;
-    margin: 0 auto;
-  }
-
-  #temperature {
-    color: rebeccapurple;
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
-  
-  @media screen and (max-width: 600px) {
-    #weather div, #holidays div {
-      width: 100%;
-      margin: 10px 0;
-    }
-  }
-  
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  size: 500px;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 20px;
+  text-align: center;
+  width: calc(20% - 20px);
+}
+
+.card h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+
+.date {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.temp {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 18px;
+}
+
+.search-bar {
+  align-items: center;
+}
