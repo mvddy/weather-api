@@ -3,13 +3,26 @@
   <head>
     <title>Whichever Weather</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   </head>
   <body>
-    <div class="search-bar">
-      <input type="text" placeholder="Enter a city...">
-      <input type="text" placeholder="Enter a country...">
-      <button>Search</button>
-    </div>
+    <header>
+      <form class="box">
+        <div class="search-bar">
+          <div class="control">
+            <input class="input" type="city" placeholder="City">
+          </div>
+        </div>
+        <div class="search-bar">
+          <label class="label">Location</label>
+          <div class="control">
+            <input class="input" type="country" placeholder="Country">
+          </div>
+
+        </div>
+        <button class="btn is-link is-outlined is-medium">Search</button>
+      </form>
+    </header>
     <div class="container">
       <h1>5 Day Forecast</h1>
       <div class="row">

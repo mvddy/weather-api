@@ -5,6 +5,16 @@
   padding: 0;
 }
 
+.body {
+  background: rgb(131,58,180);
+  background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,0.7441351540616247) 50%, rgba(252,176,69,0.7133228291316527) 100%);
+}
+
+.container h1 {
+  font-size: 100px;
+ 
+}
+
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -25,11 +35,14 @@
   padding: 20px;
   text-align: center;
   width: calc(20% - 20px);
+  background: rgb(27,1,1);
+  background: linear-gradient(90deg, rgba(27,1,1,1) 19%, rgba(9,55,121,1) 66%, rgba(255,241,0,1) 100%);
 }
 
 .card h2 {
   font-size: 24px;
   margin-bottom: 10px;
+  color: rebeccapurple;
 }
 
 
@@ -49,4 +62,15 @@
 
 .search-bar {
   align-items: center;
+}
+
+.card h2,
+.search-bar,
+.description,
+.date,
+.temp
+{
+  color: rgb(51, 211, 255);
+  font-size: larger;
+  font-weight: bolder;
 }
